@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class UI_Object : MonoBehaviour
 {
-    public bool IS_DRAGGABLE;
 
     public Texture2D cursorOverIcon;
     public CursorMode cursorMode = CursorMode.Auto;

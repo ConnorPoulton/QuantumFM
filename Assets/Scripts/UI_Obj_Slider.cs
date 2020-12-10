@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UI_Obj_Slider : UI_Object
 {
-    public Texture2D cursorDragIcon;
     private BoxCollider2D p_collider;
 
     private Transform trans;
@@ -24,12 +23,10 @@ public class UI_Obj_Slider : UI_Object
 
     public override void WhenMouseDown()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Cursor.SetCursor(cursorDragIcon, hotSpot, cursorMode);
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (p_collider.bounds.Contains(mousePos))
         {
-            Debug.Log("In bounds");
             trans.position = new Vector3(mousePos.x, trans.position.y, trans.position.z);
         }       
     }

@@ -41,17 +41,17 @@ public class Input_Controller : MonoBehaviour
         }
 
 
-        if (UI_Active.IS_DRAGGABLE && Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             UI_Active.WhenMouseDown();
         }
-        else if(UI_Active != UI_MouseOver)  
+        else if (UI_Active != UI_MouseOver)  
         {
             UI_Active = UI_MouseOver;
             UI_Active.OnMouseOver();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             UI_Active.OnMouseClick();
         }
