@@ -1,9 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UI_Obj_Knob : UI_Object
 {
+    private float intensity = 0;
+    private Vector2 directionVector;
+
+    public Vector2 targetVector;
+    public Game_Controller gameController;
+
+    void Start()
+    {
+        gameController.SetStatic(intensity);
+        targetVector = targetVector.normalized;
+    }
 
     public override void OnMouseOver()
     {
@@ -18,5 +30,9 @@ public class UI_Obj_Knob : UI_Object
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
+        directionVector = (transform.rotation * Vector2.up).normalized;
+        intensity = Math.Abs(Vector2.Dot(directionVector, targetVector));
+
+        gameController.SetStatic(intensity);
     }
 }

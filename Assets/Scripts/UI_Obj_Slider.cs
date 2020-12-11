@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UI_Obj_Slider : UI_Object
 {
     private BoxCollider2D p_collider;
-
     private Transform trans;
+    private int channelID = -1;
+
+    public Game_Controller gameController;
 
     void Start()
     {
@@ -28,6 +31,14 @@ public class UI_Obj_Slider : UI_Object
         if (p_collider.bounds.Contains(mousePos))
         {
             trans.position = new Vector3(mousePos.x, trans.position.y, trans.position.z);
+            int mousePosX = (int)mousePos.x;
+            mousePosX = Math.Abs(mousePosX);
+            int mousePosx = (mousePosX % 5);
+            if (mousePosX != channelID)
+            {
+                channelID = mousePosx;
+                gameController.ChangeChannel(channelID);
+            }               
         }       
     }
 }
