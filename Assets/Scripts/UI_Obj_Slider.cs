@@ -7,7 +7,7 @@ public class UI_Obj_Slider : UI_Object
 {
     private BoxCollider2D p_collider;
     private Transform trans;
-    private int channelID = -1;
+    public int channelID;
 
     public Game_Controller gameController;
 
@@ -16,6 +16,7 @@ public class UI_Obj_Slider : UI_Object
         trans = this.transform;
         trans.position = trans.parent.position;
         p_collider = trans.parent.GetComponent<BoxCollider2D>();
+        gameController.ChangeChannelID(channelID);
     }
 
 
@@ -37,7 +38,7 @@ public class UI_Obj_Slider : UI_Object
             if (mousePosX != channelID)
             {
                 channelID = mousePosx;
-                gameController.ChangeChannel(channelID);
+                gameController.ChangeChannelID(channelID);
             }               
         }       
     }

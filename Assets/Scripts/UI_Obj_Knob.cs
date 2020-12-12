@@ -10,10 +10,14 @@ public class UI_Obj_Knob : UI_Object
 
     public Vector2 targetVector;
     public Game_Controller gameController;
+    public int knobID;
 
     void Start()
     {
-        gameController.SetStatic(intensity);
+        directionVector = (transform.rotation * Vector2.up).normalized;
+        intensity = Math.Abs(Vector2.Dot(directionVector, targetVector)) / 2;
+
+        gameController.SetStatic();
         targetVector = targetVector.normalized;
     }
 
@@ -31,8 +35,9 @@ public class UI_Obj_Knob : UI_Object
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
         directionVector = (transform.rotation * Vector2.up).normalized;
-        intensity = Math.Abs(Vector2.Dot(directionVector, targetVector));
+        intensity = Math.Abs(Vector2.Dot(directionVector, targetVector)) / 2;
 
-        gameController.SetStatic(intensity);
+        gameController.staticIntensity[knobID] = intensity;
+        gameController.SetStatic();
     }
 }
