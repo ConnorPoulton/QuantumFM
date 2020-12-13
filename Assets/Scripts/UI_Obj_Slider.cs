@@ -7,8 +7,9 @@ public class UI_Obj_Slider : UI_Object
 {
     private BoxCollider2D p_collider;
     private Transform trans;
-    public int channelID;
+    private float maxBounds;
 
+    public int channelID;
     public Game_Controller gameController;
 
     void Start()
@@ -16,6 +17,7 @@ public class UI_Obj_Slider : UI_Object
         trans = this.transform;
         trans.position = trans.parent.position;
         p_collider = trans.parent.GetComponent<BoxCollider2D>();
+        maxBounds = p_collider.bounds.max.x;
         gameController.ChangeChannelID(channelID);
     }
 
@@ -32,14 +34,9 @@ public class UI_Obj_Slider : UI_Object
         if (p_collider.bounds.Contains(mousePos))
         {
             trans.position = new Vector3(mousePos.x, trans.position.y, trans.position.z);
-            int mousePosX = (int)mousePos.x;
-            mousePosX = Math.Abs(mousePosX);
-            int mousePosx = (mousePosX % 5);
-            if (mousePosX != channelID)
-            {
-                channelID = mousePosx;
-                gameController.ChangeChannelID(channelID);
-            }               
+            float perc = ((maxBounds / trans.localPosition.x) / 2) + (float)0.5;
+            channelID = (int)Mathf.Lerp(0, 4, perc);
+            gameController.ChangeChannelID(channelID);
         }       
     }
 }

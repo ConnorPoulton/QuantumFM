@@ -7,6 +7,8 @@ public class UI_Obj_LightButton : UI_Object
     public Sprite img_unpressed;
     public Sprite img_pressed;
     SpriteRenderer spriteRend;
+    public int codeDigit;
+    public Game_Controller gameController;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class UI_Obj_LightButton : UI_Object
     public override void OnMouseClick()
     {
         spriteRend.sprite = img_pressed;
+        gameController.LightButtonCode(codeDigit);
     }
 
     public override void OnMouseUp()

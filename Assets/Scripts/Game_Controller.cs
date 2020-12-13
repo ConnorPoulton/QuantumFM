@@ -7,11 +7,14 @@ public class Game_Controller : MonoBehaviour
 {
     public Texture[] channels = new Texture[5];
     public Texture blankTVScreen;
+    public int[] lightButtonCode = new int[3];
     public GameObject tvScreen;
+    public UI_Obj_ProgressBulb[] progressBulbs = new UI_Obj_ProgressBulb[4];
     public float[] staticIntensity = { 0, 0 };
     private Renderer tvRenderer;
     private bool powerOn = true;
     private int channelID;
+    private int lightButtonCodeIndex = 0;
 
 
     void Start()
@@ -38,6 +41,27 @@ public class Game_Controller : MonoBehaviour
     {
         float intensity = staticIntensity[0] + staticIntensity[1];
         tvRenderer.material.SetFloat("_Intensity", intensity);
+    }
+
+    public void LightButtonCode(int codeDigit)
+    {
+        if (codeDigit == lightButtonCode[lightButtonCodeIndex])
+        {
+            if (lightButtonCodeIndex == (lightButtonCode.Length - 1))
+            {
+                Debug.Log("code entered");
+                lightButtonCodeIndex = 0;
+                progressBulbs[0].LightUp();
+            }
+            else
+            {
+                lightButtonCodeIndex++;
+            }
+        }
+        else
+        {
+            lightButtonCodeIndex = 0;
+        }
     }
 
     public void TogglePower()
